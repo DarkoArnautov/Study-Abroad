@@ -138,46 +138,79 @@ export  class IndexPageTemplate extends React.Component {
                   <div className="field">
                     <div className="control">
                       <select>
-                        <option value="volvo">Volvo</option>
-                        <option value="saab">Saab</option>
-                        <option value="mercedes">Mercedes</option>
-                        <option value="audi">Audi</option>
+                        <option value="">Seclect Country</option>
+                        <option value="australia">Australia</option>
+                        <option value="united kingdom">United Kingdom</option>
                       </select>
                     </div>
                   </div>
                   <div className="field">
                     <div className="control">
                       <select>
-                        <option value="volvo">Volvo</option>
-                        <option value="saab">Saab</option>
-                        <option value="mercedes">Mercedes</option>
-                        <option value="audi">Audi</option>
+                        <option value="">Select Program Level</option>
+                        <option value="certificate">Certificate</option>
+                        <option value="deploma">Deploma</option>
+                        <option value="advanced deploma">Advanced Deploma</option>
+                        <option value="associate degree">Associate Degree</option>
+                        <option value="user graduation">User Graduation</option>
+                        <option value="post graduation">Post Graduation</option>
                       </select>
                     </div>
                   </div>
                   <div className="field">
                     <div className="control">
                       <select>
-                        <option value="volvo">Volvo</option>
-                        <option value="saab">Saab</option>
-                        <option value="mercedes">Mercedes</option>
-                        <option value="audi">Audi</option>
+                        <option value="">Select Course</option>
+                        <option value="bussiness and management">Bussiness and Management</option>
+                        <option value="engineering">Engineering</option>
+                        <option value="law">Law</option>
+                        <option value="computer science">Computer Science</option>
+                        <option value="art and design">Art and Design</option>
+                        <option value="bioscience and health">BioSience && Health</option>
+                        <option value="humanities">Humanities</option>
+                        <option value="others">Others</option>
                       </select>
                     </div>
                   </div>
                   <div className="field">
                     <div className="control">
                       <select>
-                        <option value="volvo">Volvo</option>
-                        <option value="saab">Saab</option>
-                        <option value="mercedes">Mercedes</option>
-                        <option value="audi">Audi</option>
+                        <option value="">Preferred Learning Center</option>
+                        <option value="mumbai">Mumbai</option>
+                        <option value="coimbatore">Coimbatore</option>
+                        <option value="chennai">Chennai</option>
+                        <option value="delhi">Delhi</option>
+                        <option value="pune">Pune</option>
                       </select>
+                    </div>
+                  </div>
+                  <div className="field">
+                    <div className="control">
+                      <input
+                        type={'radio'}
+                        name={'terms-policy'}
+                        onChange={this.handleChange}
+                        id={'terms-policy'}
+                        required={true}
+                        value="Yes"
+                      />  You agree to our <a href="#">Terms and conditions</a> and our <a href="#">privacy policy</a>.*
+                    </div>
+                  </div>
+                  <div className="field">
+                    <div className="control">
+                      <input
+                        type={'radio'}
+                        name={'contact-me'}
+                        onChange={this.handleChange}
+                        id={'contact-me'}
+                        required={true}
+                        value="Yes"
+                      />  I Authorize TimesPro to contact me.
                     </div>
                   </div>
                   <div className="field">
                     <button className="button is-link" type="submit">
-                      Send
+                      Enquire now
                     </button>
                   </div>
                 </form>
