@@ -16,7 +16,18 @@ function encode(data) {
 export  class IndexPageTemplate extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { isValidated: false }
+    this.state = { 
+      isValidated: false,
+      scroll: "",
+      top: "",
+    }
+
+    this.handleScroll = this.handleScroll.bind(this);
+
+  }
+
+  handleScroll () {
+    this.setState({scroll: window.scrollY});
   }
 
   handleChange = e => {
@@ -38,6 +49,13 @@ export  class IndexPageTemplate extends React.Component {
       .catch(error => alert(error))
   }
 
+  componentDidMount() {
+
+    const el = document.getElementById('sticky-form');
+    this.setState({top: el.offsetTop, height: el.offsetHeight});
+    window.addEventListener('scroll', this.handleScroll);
+  }
+
   render() {
     const { image, title, header, logo, content, contentComponent } = this.props;
     const PostContent = contentComponent || Content
@@ -51,169 +69,172 @@ export  class IndexPageTemplate extends React.Component {
                 <PreviewCompatibleImage imageInfo={header.image} />
               </div>
             </div>
-            <div className="column is-2">
+            <div className="column is-2 mobile-logo">
               <PreviewCompatibleImage imageInfo={logo.image} />
             </div>
           </div>
         </div>
         <br />
         <br />
-          <PreviewCompatibleImage imageInfo={image} />
+        <PreviewCompatibleImage imageInfo={image} />
         <br />
         <br />
         <div className="row">
           <div className="columns">
-            <div className="column is-8">
+            <div className="text-wrap">
               <PostContent content={content} className="markdown" />
             </div>
-            <div className="column is-4">
-              <form
-                  name="contact"
-                  method="post"
-                  action="/contact/thanks/"
-                  data-netlify="true"
-                  data-netlify-honeypot="bot-field"
-                  onSubmit={this.handleSubmit}
-                >
-                  {/* The `form-name` hidden field is required to support form submissions without JavaScript */}
-                  <input type="hidden" name="form-name" value="contact" />
-                  <div hidden>
-                    <label>
-                      Don’t fill this out:{' '}
-                      <input name="bot-field" onChange={this.handleChange} />
-                    </label>
-                  </div>
-                  <div className="field">
-                    <div className="control">
-                      <input
-                        className="input"
-                        type={'text'}
-                        name={'name'}
-                        onChange={this.handleChange}
-                        id={'name'}
-                        required={true}
-                        placeholder="Name"
-                      />
+            <div className="column">
+              <div className="form-wrap" id="sticky-form" 
+                style={this.state.scroll > this.state.top ? { position: "fixed", top: "20px"} : { position: "relative"}} >
+                <form
+                    name="contact"
+                    method="post"
+                    action="/contact/thanks/"
+                    data-netlify="true"
+                    data-netlify-honeypot="bot-field"
+                    onSubmit={this.handleSubmit}
+                  >
+                    {/* The `form-name` hidden field is required to support form submissions without JavaScript */}
+                    <input type="hidden" name="form-name" value="contact" />
+                    <div hidden>
+                      <label>
+                        Don’t fill this out:{' '}
+                        <input name="bot-field" onChange={this.handleChange} />
+                      </label>
                     </div>
-                  </div>
-                  <div className="field">
-                    <div className="control">
-                      <input
-                        className="input"
-                        type={'email'}
-                        name={'email'}
-                        onChange={this.handleChange}
-                        id={'email'}
-                        required={true}
-                        placeholder="Email"
-                      />
+                    <div className="field">
+                      <div className="control">
+                        <input
+                          className="input"
+                          type={'text'}
+                          name={'name'}
+                          onChange={this.handleChange}
+                          id={'name'}
+                          required={true}
+                          placeholder="Name"
+                        />
+                      </div>
                     </div>
-                  </div>
-                  <div className="field">
-                    <div className="control">
-                      <input
-                        className="input"
-                        type={'number'}
-                        name={'phonenumber'}
-                        onChange={this.handleChange}
-                        id={'phonenumber'}
-                        required={true}
-                        placeholder="Phone Number"
-                      />
+                    <div className="field">
+                      <div className="control">
+                        <input
+                          className="input"
+                          type={'email'}
+                          name={'email'}
+                          onChange={this.handleChange}
+                          id={'email'}
+                          required={true}
+                          placeholder="Email"
+                        />
+                      </div>
                     </div>
-                  </div>
-                  <div className="field">
-                    <div className="control">
-                      <input
-                        className="input"
-                        type={'date'}
-                        name={'date'}
-                        onChange={this.handleChange}
-                        id={'date'}
-                        required={true}
-                        placeholder="DOB"
-                      />
+                    <div className="field">
+                      <div className="control">
+                        <input
+                          className="input"
+                          type={'number'}
+                          name={'phonenumber'}
+                          onChange={this.handleChange}
+                          id={'phonenumber'}
+                          required={true}
+                          placeholder="Phone Number"
+                        />
+                      </div>
                     </div>
-                  </div>
-                  <div className="field">
-                    <div className="control">
-                      <select>
-                        <option value="">Seclect Country</option>
-                        <option value="australia">Australia</option>
-                        <option value="united kingdom">United Kingdom</option>
-                      </select>
+                    <div className="field">
+                      <div className="control">
+                        <input
+                          className="input"
+                          type={'date'}
+                          name={'date'}
+                          onChange={this.handleChange}
+                          id={'date'}
+                          required={true}
+                          placeholder="DOB"
+                        />
+                      </div>
                     </div>
-                  </div>
-                  <div className="field">
-                    <div className="control">
-                      <select>
-                        <option value="">Select Program Level</option>
-                        <option value="certificate">Certificate</option>
-                        <option value="deploma">Deploma</option>
-                        <option value="advanced deploma">Advanced Deploma</option>
-                        <option value="associate degree">Associate Degree</option>
-                        <option value="user graduation">User Graduation</option>
-                        <option value="post graduation">Post Graduation</option>
-                      </select>
+                    <div className="field">
+                      <div className="control">
+                        <select>
+                          <option value="">Seclect Country</option>
+                          <option value="australia">Australia</option>
+                          <option value="united kingdom">United Kingdom</option>
+                        </select>
+                      </div>
                     </div>
-                  </div>
-                  <div className="field">
-                    <div className="control">
-                      <select>
-                        <option value="">Select Course</option>
-                        <option value="bussiness and management">Bussiness and Management</option>
-                        <option value="engineering">Engineering</option>
-                        <option value="law">Law</option>
-                        <option value="computer science">Computer Science</option>
-                        <option value="art and design">Art and Design</option>
-                        <option value="bioscience and health">BioSience && Health</option>
-                        <option value="humanities">Humanities</option>
-                        <option value="others">Others</option>
-                      </select>
+                    <div className="field">
+                      <div className="control">
+                        <select>
+                          <option value="">Select Program Level</option>
+                          <option value="certificate">Certificate</option>
+                          <option value="deploma">Deploma</option>
+                          <option value="advanced deploma">Advanced Deploma</option>
+                          <option value="associate degree">Associate Degree</option>
+                          <option value="user graduation">User Graduation</option>
+                          <option value="post graduation">Post Graduation</option>
+                        </select>
+                      </div>
                     </div>
-                  </div>
-                  <div className="field">
-                    <div className="control">
-                      <select>
-                        <option value="">Preferred Learning Center</option>
-                        <option value="mumbai">Mumbai</option>
-                        <option value="coimbatore">Coimbatore</option>
-                        <option value="chennai">Chennai</option>
-                        <option value="delhi">Delhi</option>
-                        <option value="pune">Pune</option>
-                      </select>
+                    <div className="field">
+                      <div className="control">
+                        <select>
+                          <option value="">Select Course</option>
+                          <option value="bussiness and management">Bussiness and Management</option>
+                          <option value="engineering">Engineering</option>
+                          <option value="law">Law</option>
+                          <option value="computer science">Computer Science</option>
+                          <option value="art and design">Art and Design</option>
+                          <option value="bioscience and health">BioSience && Health</option>
+                          <option value="humanities">Humanities</option>
+                          <option value="others">Others</option>
+                        </select>
+                      </div>
                     </div>
-                  </div>
-                  <div className="field">
-                    <div className="control">
-                      <input
-                        type={'radio'}
-                        name={'terms-policy'}
-                        onChange={this.handleChange}
-                        id={'terms-policy'}
-                        required={true}
-                        value="Yes"
-                      />  You agree to our <a href="#">Terms and conditions</a> and our <a href="#">privacy policy</a>.*
+                    <div className="field">
+                      <div className="control">
+                        <select>
+                          <option value="">Preferred Learning Center</option>
+                          <option value="mumbai">Mumbai</option>
+                          <option value="coimbatore">Coimbatore</option>
+                          <option value="chennai">Chennai</option>
+                          <option value="delhi">Delhi</option>
+                          <option value="pune">Pune</option>
+                        </select>
+                      </div>
                     </div>
-                  </div>
-                  <div className="field">
-                    <div className="control">
-                      <input
-                        type={'radio'}
-                        name={'contact-me'}
-                        onChange={this.handleChange}
-                        id={'contact-me'}
-                        required={true}
-                        value="Yes"
-                      />  I Authorize TimesPro to contact me.
+                    <div className="field">
+                      <div className="control">
+                        <input
+                          type={'radio'}
+                          name={'terms-policy'}
+                          onChange={this.handleChange}
+                          id={'terms-policy'}
+                          required={true}
+                          value="Yes"
+                        />  You agree to our <a href="#">Terms and conditions</a> and our <a href="#">privacy policy</a>.*
+                      </div>
                     </div>
-                  </div>
-                  <div className="field">
-                    <button className="button is-link" type="submit">
-                      Enquire now
-                    </button>
-                  </div>
-                </form>
+                    <div className="field">
+                      <div className="control">
+                        <input
+                          type={'radio'}
+                          name={'contact-me'}
+                          onChange={this.handleChange}
+                          id={'contact-me'}
+                          required={true}
+                          value="Yes"
+                        />  I Authorize TimesPro to contact me.
+                      </div>
+                    </div>
+                    <div className="field">
+                      <button className="button is-link" type="submit">
+                        Enquire now
+                      </button>
+                    </div>
+                  </form>
+              </div>
             </div>
           </div>
         </div>
